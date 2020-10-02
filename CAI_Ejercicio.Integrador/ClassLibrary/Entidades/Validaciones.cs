@@ -8,12 +8,13 @@ namespace ClassLibrary.Entidades
 {
     public class Validaciones
     {
+        ConsolaHelper H = new ConsolaHelper();
         public bool ValidarStringNULL(string a)
         {
             bool flag = false;
             if (string.IsNullOrWhiteSpace(a))
             {
-                Console.WriteLine("No debe dejar espacios en blanco");
+                H.MostrarMensaje("No debe dejar espacios en blanco");
             }
             else
             {
@@ -27,7 +28,7 @@ namespace ClassLibrary.Entidades
             bool flag = false;
             if(!DateTime.TryParse(fecha, out salida))
             {
-                Console.WriteLine("No es un formato de fecha valido");
+                H.MostrarMensaje("No es un formato de fecha valido");
             }
             else
             {
@@ -43,11 +44,11 @@ namespace ClassLibrary.Entidades
 
             if (!Int32.TryParse(opcion, out _caso))
             {
-                Console.WriteLine("Debe ingresar una opcion valida");
+                H.MostrarMensaje("Debe ingresar una opcion valida");
             }
             else if (_caso < 1 || _caso > 9)
             {
-                Console.WriteLine("Debe ingresar una opcion valida");
+                H.MostrarMensaje("Debe ingresar una opcion valida");
             }
             else
                 _flag = true;
@@ -60,7 +61,7 @@ namespace ClassLibrary.Entidades
             bool flag = false;
             if (string.IsNullOrWhiteSpace(a))
             {
-                Console.WriteLine("No debe dejar espacios en blanco");
+                H.MostrarMensaje("No debe dejar espacios en blanco");
             }
             else if (a == "S")
             {
@@ -72,7 +73,7 @@ namespace ClassLibrary.Entidades
             }
             else
             {
-                Console.WriteLine("No son opciones validas");
+                H.MostrarMensaje("No son opciones validas");
             }
             return flag;
         }

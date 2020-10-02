@@ -18,21 +18,16 @@ namespace ClassLibrary.Entidades
             set { this._codigo = value; }
         }
 
-        //public string Credencial
-        //{
-        //    get { return }
-        //}
-
         public Alumno()
         {
 
         }
-        public Alumno(string nombre, string apellido, DateTime fechanac, int codigo)
+        public Alumno(string nombre, string apellido, DateTime fechanac)
         {
             this._apellido = apellido;
             this._nombre = nombre;
             this._fechaNac = fechanac;
-            this._codigo = codigo;
+            this._codigo = GetCodigoAleatorio();
         }
 
         public override string ToString()
@@ -42,6 +37,12 @@ namespace ClassLibrary.Entidades
         public string GetCredencial()
         {
             return string.Format("Codigo {0}, {1}, {2}", this._codigo, this._apellido, this._nombre);
+        }
+        public virtual int GetCodigoAleatorio()
+        {
+            Random rnd = new Random();
+            int num = rnd.Next(5000);
+            return num; 
         }
 
     }

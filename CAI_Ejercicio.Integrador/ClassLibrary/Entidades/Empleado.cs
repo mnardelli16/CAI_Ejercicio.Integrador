@@ -37,8 +37,11 @@ namespace ClassLibrary.Entidades
             set { this._fechaNac = value; }
         }
 
-
-        public string GetCredencial()
+        public override string ToString()
+        {
+            return GetCredencial();
+        }
+        public virtual string GetCredencial()
         {
             return string.Format("{0} - {1} salario $ {2}", this._legajo, GetNombreCompleto(), _salarios);
         }

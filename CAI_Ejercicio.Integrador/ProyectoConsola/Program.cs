@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary;
 using ClassLibrary.Entidades;
+using ClassLibrary.Exceptions;
 
 namespace ProyectoConsola
 {
@@ -14,6 +15,8 @@ namespace ProyectoConsola
         {
             MenuConsola M = new MenuConsola();
             Facultad F = new Facultad();
+            ConsolaHelper H = new ConsolaHelper();
+            Validaciones V = new Validaciones();
 
             M.PantallaInicio();
 
@@ -38,6 +41,7 @@ namespace ProyectoConsola
                             }
                         case 3:
                             {
+                                EliminarAlumno(F);
                                 break;
                             }
                         case 4:
@@ -69,29 +73,23 @@ namespace ProyectoConsola
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    H.MostrarMensaje((ex.Message));
                 }
 
                 bool ok;
 
                 do
                 {
-                    Console.WriteLine("Desea elegir otra opcion S/N : ");
-                    seguir = Console.ReadLine();
-                    ok = new Validaciones().ValidarSalida(seguir);
-                } while (ok == false);
+                    seguir = H.SeguirMenu();
+                    ok = V.ValidarSalida(seguir);
+                } while (!ok);
 
 
             } while (seguir == "S");
 
-            Console.WriteLine("HASTA LUEGO");
+            H.MostrarMensaje("HASTA LUEGO");
 
             //System.Console.Clear();
-
-            Console.ReadKey();
-
-
-
 
 
             Console.ReadKey();
@@ -99,6 +97,9 @@ namespace ProyectoConsola
 
         static void AgregarAlumnos(Facultad a)
         {
+            ConsolaHelper H = new ConsolaHelper();
+            Validaciones V = new Validaciones();
+
             try
             {
                 string nombre;
@@ -107,29 +108,60 @@ namespace ProyectoConsola
                 bool flag = false;
                 do
                 {
-                    nombre = new ConsolaHelper().PedirNombre();
-                    flag = new Validaciones().ValidarStringNULL(nombre);
+                    nombre = H.PedirNombre();
+                    flag = V.ValidarStringNULL(nombre);
                 } while (!flag);
+
                 bool flag2 = false;
                 do
                 {
-                    apellido = new ConsolaHelper().PedirApellido();
-                    flag2 = new Validaciones().ValidarStringNULL(apellido);
+                    apellido = H.PedirApellido();
+                    flag2 = V.ValidarStringNULL(apellido);
                 } while (!flag2);
+
                 bool flag3 = false;
                 do
                 {
-                    string fechanac = new ConsolaHelper().PedirFechaNac();
-                    flag3 = new Validaciones().ValidarFecha(fechanac, ref Fechanac);
+                    string fechanac = H.PedirFechaNac();
+                    flag3 = V.ValidarFecha(fechanac, ref Fechanac);
                 } while (!flag3);
 
-                Alumno A = new Alumno(nombre, apellido, Fechanac, 1);
+                Alumno A = new Alumno(nombre, apellido, Fechanac);
 
                 a.AgregarAlumno(A);
             }
             catch (Exception e)
             {
-                new ConsolaHelper().MostrarMensaje(e.ToString());
+                H.MostrarMensaje(e.ToString());
+            }
+        }
+
+        static void EliminarAlumno(Facultad F)
+        {
+            ConsolaHelper H = new ConsolaHelper();
+            Validaciones V = new Validaciones();
+
+            try
+            {
+                if (F.CantidadAlumnos() == 0)
+                {
+                    throw new ListaVaciaAlumnosException();
+                }
+                else
+                {
+                    H.MostrarMensaje("Listado de alumnos: ");
+                    F.TraerAlumnos();
+                }
+
+                string codigo = H.PedirCodigoAlumno(); // falta buscar al alumno en la lista
+
+
+                F.EliminarAlumno(1); // eliminar por codigo
+
+            }
+            catch (ListaVaciaAlumnosException e)
+            {
+                H.MostrarMensaje(e.Message);
             }
         }
     }

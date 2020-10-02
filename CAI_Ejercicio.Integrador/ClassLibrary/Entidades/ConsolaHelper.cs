@@ -23,6 +23,11 @@ namespace ClassLibrary.Entidades
             Console.WriteLine("Ingrese la fecha de nacimiento: ");
             return Console.ReadLine();
         }
+        public string PedirCodigoAlumno()
+        {
+            Console.WriteLine("Ingrese el codigo de alumno: ");
+            return Console.ReadLine();
+        }
 
         public string PedirMenu()
         {
@@ -30,9 +35,16 @@ namespace ClassLibrary.Entidades
             return Console.ReadLine();
         }
 
+        public string SeguirMenu()
+        {
+            Console.WriteLine("Desea elegir otra opcion S/N : ");
+            return Console.ReadLine();
+        }
+
         public void MostrarMensaje(string msj)
         {
             Console.WriteLine(msj);
         }
+
     }
 }
