@@ -16,6 +16,12 @@ namespace ClassLibrary.Entidades
             set { this._apodo = value; }
         }
 
+
+        public Bedel(string nombre, string apellido, double bruto, DateTime fechaingreso, DateTime fechanac, string apodo) :base(nombre,apellido, fechanac, fechaingreso, bruto)
+        {
+            this._apodo = apodo;
+        }
+
         public override string GetNombreCompleto()
         {
             return string.Format("Bedel {0}",this._apodo);

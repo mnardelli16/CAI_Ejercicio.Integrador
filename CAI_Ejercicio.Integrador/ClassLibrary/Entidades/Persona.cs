@@ -45,11 +45,12 @@ namespace ClassLibrary.Entidades
             this._apellido = apellido;
             this._nombre = nombre;
             this._fechaNac = fechanac;
+            this._edad = GetEdad();
         }
 
         //METODOS
 
-        public virtual string GetNombreCompleto() //no es asi
+        public virtual string GetNombreCompleto() 
         {
             return string.Format("{0}, {1}", this._apellido, this._nombre); 
         }

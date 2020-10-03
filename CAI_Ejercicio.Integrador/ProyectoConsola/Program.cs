@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using ClassLibrary;
@@ -46,10 +47,12 @@ namespace ProyectoConsola
                             }
                         case 4:
                             {
+                                AgregarEmpleado(F);
                                 break;
                             }
                         case 5:
                             {
+                                F.TraerEmpleados();
                                 break;
                             }
                         case 6:
@@ -129,6 +132,7 @@ namespace ProyectoConsola
                 Alumno A = new Alumno(nombre, apellido, Fechanac);
 
                 a.AgregarAlumno(A);
+
             }
             catch (Exception e)
             {
@@ -152,17 +156,98 @@ namespace ProyectoConsola
                     H.MostrarMensaje("Listado de alumnos: ");
                     F.TraerAlumnos();
                 }
+                bool flag = false;
+                string codigo;
+                do
+                {
+                    codigo = H.PedirCodigoAlumno(); // falta buscar al alumno en la lista
+                    flag = V.ValidarCodigoAlumno(codigo);
+                } while (!flag);
 
-                string codigo = H.PedirCodigoAlumno(); // falta buscar al alumno en la lista
 
-
-                F.EliminarAlumno(1); // eliminar por codigo
+                F.EliminarAlumno(Convert.ToInt32(codigo)); // eliminar por codigo
 
             }
             catch (ListaVaciaAlumnosException e)
             {
                 H.MostrarMensaje(e.Message);
             }
+        }
+
+        static void AgregarEmpleado(Facultad F)
+        {
+            ConsolaHelper H = new ConsolaHelper();
+            Validaciones V = new Validaciones();
+
+            try
+            {
+                string nombre;
+                string apellido;
+                DateTime Fechanac = new DateTime();
+                string tipoemp;
+                DateTime _fechalaboral = new DateTime();
+                string apodo = "";
+                double bruto = 0;
+
+                bool _fl = false;
+                do
+                {
+                    tipoemp = H.PedirTipoEmpleado();
+                    _fl = V.ValidarTipoEmpleado(tipoemp);
+                } while (!_fl);
+                
+                bool flag = false;
+                do
+                {
+                    nombre = H.PedirNombre();
+                    flag = V.ValidarStringNULL(nombre);
+                } while (!flag);
+
+                bool flag2 = false;
+                do
+                {
+                    apellido = H.PedirApellido();
+                    flag2 = V.ValidarStringNULL(apellido);
+                } while (!flag2);
+
+                bool flag3 = false;
+                do
+                {
+                    string fechanac = H.PedirFechaNac();
+                    flag3 = V.ValidarFecha(fechanac, ref Fechanac);
+                } while (!flag3);
+
+                bool flag4 = false;
+                do
+                {
+                    string fechala = H.PedirFechaIngresoLaboral();
+                    flag4 = V.ValidarFecha(fechala, ref _fechalaboral);
+                } while (!flag4);
+
+                bool flag6 = false;
+                do
+                {
+                    string brutostr = H.PedirSalarioBruto();
+                    flag6 = V.ValidarSalarioBruto(brutostr, ref bruto);
+                } while (!flag6);
+
+                if (tipoemp == "B")
+                {
+                    bool flag5 = false;
+                    do
+                    {
+                        apodo = H.PedirApodo();
+                        flag5 = V.ValidarStringNULL(apodo);
+                    } while (!flag5);
+                }
+
+                F.AgregarEmpleado(nombre, apellido, _fechalaboral, tipoemp, apodo, bruto, Fechanac);
+
+            } catch(Exception e)
+            {
+                H.MostrarMensaje(e.Message);
+            }
+
         }
     }
 }

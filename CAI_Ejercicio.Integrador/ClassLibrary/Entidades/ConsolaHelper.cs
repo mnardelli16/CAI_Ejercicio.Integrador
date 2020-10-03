@@ -13,6 +13,11 @@ namespace ClassLibrary.Entidades
             Console.WriteLine("Ingrese el Nombre: ");
             return Console.ReadLine();
         }
+        public string PedirApodo()
+        {
+            Console.WriteLine("Ingrese el Apodo: ");
+            return Console.ReadLine();
+        }
         public string PedirApellido()
         {
             Console.WriteLine("Ingrese el Apellido: ");
@@ -25,10 +30,24 @@ namespace ClassLibrary.Entidades
         }
         public string PedirCodigoAlumno()
         {
-            Console.WriteLine("Ingrese el codigo de alumno: ");
+            Console.WriteLine("Ingrese el codigo de alumno a eliminar: ");
             return Console.ReadLine();
         }
-
+        public string PedirSalarioBruto()
+        {
+            Console.WriteLine("Ingrese el salario bruto: ");
+            return Console.ReadLine();
+        }
+        public string PedirFechaIngresoLaboral()
+        {
+            Console.WriteLine("Ingrese la fecha de inicio laboral: ");
+            return Console.ReadLine();
+        }
+        public string PedirTipoEmpleado()
+        {
+            Console.WriteLine("Ingrese el tipo de empleado: B - Bedel, C - Directivo, D - Docente ");
+            return Console.ReadLine();
+        }
         public string PedirMenu()
         {
             Console.WriteLine("Elija una opcion del menu: ");

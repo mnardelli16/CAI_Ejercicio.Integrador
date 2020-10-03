@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary.Entidades
 {
-    public abstract class Empleado :Persona
+    public abstract class Empleado : Persona
     {
         private DateTime _fechaIngreso;
         private int _legajo;
-
-        private List<Salario> _salarios = new List<Salario>();
+        private Salario _ultimosalario;
+        private List<Salario> _salarios;
 
         public int Legajo
         {
@@ -37,13 +37,68 @@ namespace ClassLibrary.Entidades
             set { this._fechaNac = value; }
         }
 
+        public List<Salario> Salarios
+        {
+            get { return this._salarios; }
+        }
+
+        public Salario UltimoSalario
+        {
+            get { return this._ultimosalario; }
+            set { this._ultimosalario = value; }
+        }
+        public Empleado()
+        {
+
+        }
+        public Empleado(string nombre, string apellido, DateTime fechanac, DateTime fechaingreso, double bruto):base(nombre, apellido, fechanac)
+        {
+            this._fechaIngreso = fechaingreso;
+            this._legajo = GetLegajoAleatorio();
+            this._ultimosalario = new Salario(bruto);
+            this._salarios = new List<Salario>();
+            AgregarSalario(_ultimosalario);
+        }
+    
+
         public override string ToString()
         {
             return GetCredencial();
         }
+
+        public override string GetNombreCompleto()
+        {
+            return string.Format("{0}", this._apellido);
+        }
+
         public virtual string GetCredencial()
         {
-            return string.Format("{0} - {1} salario $ {2}", this._legajo, GetNombreCompleto(), _salarios);
+            return string.Format("{0} - {1} salario $ {2}", this._legajo, GetNombreCompleto(), this._ultimosalario.GetSalarioNeto().ToString());
+        }
+        
+        public int GetLegajoAleatorio()
+        {
+            Random rnd = new Random();
+            int num = rnd.Next(60,100);
+            return num;
+        }
+        public void AgregarSalario(Salario s)
+        {
+            this._salarios.Add(s);
+        }
+
+        public override bool Equals(object obj)
+        {
+
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Empleado))
+            {
+                return false;
+            }
+            return (this.Legajo == ((Empleado)obj).Legajo);
         }
 
     }

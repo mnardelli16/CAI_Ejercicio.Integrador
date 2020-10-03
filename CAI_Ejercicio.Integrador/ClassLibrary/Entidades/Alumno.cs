@@ -22,11 +22,8 @@ namespace ClassLibrary.Entidades
         {
 
         }
-        public Alumno(string nombre, string apellido, DateTime fechanac)
+        public Alumno(string nombre, string apellido, DateTime fechanac):base(nombre, apellido,fechanac)
         {
-            this._apellido = apellido;
-            this._nombre = nombre;
-            this._fechaNac = fechanac;
             this._codigo = GetCodigoAleatorio();
         }
 
@@ -41,7 +38,7 @@ namespace ClassLibrary.Entidades
         public virtual int GetCodigoAleatorio()
         {
             Random rnd = new Random();
-            int num = rnd.Next(5000);
+            int num = rnd.Next(50);
             return num; 
         }
 

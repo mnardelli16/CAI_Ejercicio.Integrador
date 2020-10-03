@@ -37,9 +37,12 @@ namespace ClassLibrary.Entidades
             set { this._fecha = value; }
         }
 
-        public Salario(double salario)
+        public Salario(double bruto)
         {
-            this._bruto = salario;
+            this._bruto = bruto;
+            this._descuentos = bruto * 0.17;
+            this._fecha = DateTime.Now;
+            this._codigoTransferencia = _fecha.Ticks.ToString();
         }
 
         public double GetSalarioNeto()
