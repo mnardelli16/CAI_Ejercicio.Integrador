@@ -178,5 +178,78 @@ namespace ClassLibrary.Entidades
                 new ConsolaHelper().MostrarMensaje(e.Message);
             }
         }
+
+        public int CantidadEmpleados()
+        {
+            return _empleados.Count;
+        }
+        public Empleado TraerEmpleadoporLegajo(int legajo)
+        {
+            foreach(Empleado E in _empleados)
+            {
+                if(E.Legajo == legajo)
+                {
+                    return E;
+                }
+            }
+            return null;
+        }
+
+        public List<Empleado> TraerEmpleadoPorNombre(string nombre)
+        {
+            List<Empleado> emp = new List<Empleado>(); // creando una nueva lista emp
+            foreach(Empleado E in this._empleados) // busco sobre la lista que contiene mis empleados
+            {
+                if (E.NombreEmpleado().ToLower().Contains(nombre.ToLower()))
+                {
+                    emp.Add(E); // agrego a mi nueva lista auxiliar el objeto encontrado
+                }
+            }
+            return emp;
+        }
+
+        public void ModificarEmpleado(string nombre, string apellido, int legajo)
+        {
+            Empleado E = TraerEmpleadoporLegajo(legajo);
+            if(nombre != "F")
+            {
+                E.Nombre = nombre;
+            }
+            if(apellido != "F")
+            {
+                E.Apellido = apellido;
+
+            }
+        }
+
+        public void EliminarEmpleado(int legajo)
+        {
+            try
+            {
+                if (BuscarEmpleado(legajo) == null)
+                {
+                    throw new EmpleadoInexistenteException();
+                }
+                else
+                {
+                    Empleado E = BuscarEmpleado(legajo);
+                    _empleados.Remove(E);
+                    H.MostrarMensaje("Empleado eliminado con exito!");
+                }
+
+            }
+            catch (EmpleadoInexistenteException e)
+            {
+                H.MostrarMensaje(e.Message);
+            }
+
+        }
+
+        public Empleado BuscarEmpleado(int legajo)
+        {
+            return _empleados.Find(a => a.Legajo == legajo);
+
+        }
+
     }
 }

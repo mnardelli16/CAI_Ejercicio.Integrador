@@ -53,6 +53,7 @@
     <Compile Include="Entidades\TipoEmpleado.cs" />
     <Compile Include="Entidades\Validaciones.cs" />
     <Compile Include="Exceptions\AlumnoInexistenteException.cs" />
+    <Compile Include="Exceptions\EmpleadoInexistenteException.cs" />
     <Compile Include="Exceptions\ListaEmpleadoVaciaException.cs" />
     <Compile Include="Exceptions\ListaVaciaAlumnosException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

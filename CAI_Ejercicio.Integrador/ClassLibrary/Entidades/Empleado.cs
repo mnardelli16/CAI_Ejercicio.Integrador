@@ -71,6 +71,11 @@ namespace ClassLibrary.Entidades
             return string.Format("{0}", this._apellido);
         }
 
+        public string NombreEmpleado()
+        {
+            return string.Format(this._nombre);
+        }
+
         public virtual string GetCredencial()
         {
             return string.Format("{0} - {1} salario $ {2}", this._legajo, GetNombreCompleto(), this._ultimosalario.GetSalarioNeto().ToString());

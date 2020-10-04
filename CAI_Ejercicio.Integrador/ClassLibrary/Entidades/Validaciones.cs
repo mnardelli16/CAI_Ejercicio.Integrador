@@ -131,5 +131,23 @@ namespace ClassLibrary.Entidades
             }
             return flag;
         }
+
+        public bool ValidarLegajoEmpleado(string a)
+        {
+            bool flag = false;
+            if (!Int32.TryParse(a, out int salida))
+            {
+                H.MostrarMensaje("No es un formato numerico valido");
+            }
+            else if (salida <= 60 || salida > 100)
+            {
+                H.MostrarMensaje("Debe ser mayor a 60 y menor a 100");
+            }
+            else
+            {
+                flag = true;
+            }
+            return flag;
+        }
     }
 }

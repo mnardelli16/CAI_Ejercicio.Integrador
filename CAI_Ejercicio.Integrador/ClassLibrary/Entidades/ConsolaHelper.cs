@@ -33,6 +33,11 @@ namespace ClassLibrary.Entidades
             Console.WriteLine("Ingrese el codigo de alumno a eliminar: ");
             return Console.ReadLine();
         }
+        public string PedirLegajoEmpleadoEliminar()
+        {
+            Console.WriteLine("Ingrese el legajo del Empleado a eliminar: ");
+            return Console.ReadLine();
+        }
         public string PedirSalarioBruto()
         {
             Console.WriteLine("Ingrese el salario bruto: ");
@@ -46,6 +51,16 @@ namespace ClassLibrary.Entidades
         public string PedirTipoEmpleado()
         {
             Console.WriteLine("Ingrese el tipo de empleado: B - Bedel, C - Directivo, D - Docente ");
+            return Console.ReadLine();
+        }
+        public string PedirLegajo()
+        {
+            Console.WriteLine("Ingrese el legajo a buscar: ");
+            return Console.ReadLine();
+        }
+        public string PedirLegajoAModificar()
+        {
+            Console.WriteLine("Ingrese el legajo a modificar: ");
             return Console.ReadLine();
         }
         public string PedirMenu()
@@ -64,6 +79,12 @@ namespace ClassLibrary.Entidades
         {
             Console.WriteLine(msj);
         }
+
+        public string PedirModificar() 
+        {
+            return Console.ReadLine();
+        }
+
 
     }
 }
